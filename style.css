@@ -1,0 +1,289 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Geneva", sans-serif;
+}
+
+input {
+  outline: none;
+}
+
+#sfondo {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+}
+
+#rect-green {
+  width: 100%;
+  height: 15vh;
+  background-color: #568072;
+}
+
+#rect-grey {
+  width: 100%;
+  height: 85vh;
+  background-color: #d0d1c7;
+}
+
+#container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 10;
+}
+
+.container {
+  width: 80vw;
+  height: 90vh;
+  background-color: #568072;
+  display: flex;
+  z-index: 10;
+}
+
+#container .box.sx {
+  width: 30%;
+  background: #e9e9e9;
+  border-right: 1px solid gray;
+}
+
+.box > .header {
+  width: 100%;
+  height: 60px;
+}
+
+.box header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #e9e9e9;
+}
+
+.immg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.immg > img {
+  max-width: 100%;
+  height: auto;
+}
+
+.box-icon {
+  width: 50%;
+  line-height: 40px;
+  color: grey;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.box-icon > i {
+  padding-right: 10px;
+}
+
+.box-notification {
+  display: flex;
+  padding: 10px;
+  height: 70px;
+  background-color: #a8d9fa;
+}
+
+.box-notification > .bell-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.bell-icon > i.fas.fa-bell-slash:before {
+  display: block;
+  width: 50px;
+  text-align: center;
+  line-height: 50px;
+  height: 30px;
+  color: #a8d9fa;
+}
+
+.box-txt-notification {
+  width: 70%;
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.box-txt-notification > a {
+  color: #000;
+  font-size: 11.5px;
+}
+
+.input-box {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.input-box > input {
+  height: 22px;
+  width: 80%;
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+.search {
+  width: 10%;
+  height: 22px;
+  background-color: #fff;
+  text-align: center;
+  line-height: 22px;
+  border-right: 1px solid gray;
+}
+
+.search > i {
+  color: grey;
+  font-size: 19px;
+}
+
+.container-mex {
+  width: 100%;
+  height: calc(100% - 160px);
+  overflow-y: scroll;
+
+}
+
+.box-mex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px;
+  border-bottom: 1px solid gray;
+}
+
+.active {
+  background-color: #d8d8d8;
+}
+
+.box-mex:hover {
+  background-color: #d8d8d8;
+}
+
+.box-content-mex {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.box_t-o {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.box_t-o > .orario {
+  color: gray;
+  font-size: 11px;
+}
+
+.box-content-mex > .testo {
+  font-size: 12px;
+  color: gray;
+}
+
+#container .box.dx {
+  width: 70%;
+  background-image: url("imgs/msg-background.jpg");
+}
+
+.box.dx .chat {
+  width: 100%;
+  height: calc(100% - 120px);
+}
+
+.box.dx .wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.chat .box-riga {
+  width: 100%;
+  padding: 14px;
+}
+
+.txt-mex {
+  font-size: 12px;
+}
+
+.time-mex {
+  font-size: 10px;
+  color: gray;
+  display: block;
+  text-align: right;
+  width: 100%;
+}
+
+.mex-sent {
+  width: 35%;
+  padding: 8px;
+  border-radius: 5px;
+  border: .5px solid lightgray;
+  background-color: #fff;
+}
+
+.mex-received {
+  width: 35%;
+  margin-left: 65%;
+  padding: 8px;
+  border-radius: 5px;
+  border: .5px solid lightgray;
+  background-color: #e0f8bd;
+}
+
+.box.dx footer {
+  width: 100%;
+  height: 60px;
+  background-color: #e9e9e9;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.input-chat {
+  width: 70%;
+  height: 100%;
+  line-height: 63px;
+}
+
+.input-chat > .input-txt {
+  width: 100%;
+  height: 45px;;
+  line-height: 55px;
+  border-radius: 10px;
+  border: 0;
+}
+
+[placeholder] {
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.box.dx .emoji {
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  line-height: 56px;
+}
+
+.box.dx .emoji i {
+  color: gray;
+}
