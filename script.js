@@ -1,9 +1,8 @@
-function testAdMessage() {
+function testAddMessage() {
 
 var wrapper = $(".wrapper");
-//var row = $(".box-riga");
 
-//var rigaBox = document.createElement("div");
+var rigaBox = document.createElement("div");
 var message = document.createElement("div");
 var messageContent = document.createElement("p");
 var messageDetail = document.createElement("span");
@@ -15,23 +14,22 @@ $(messageDetail).text("12:31");
 
 message.append(messageContent);
 message.append(messageDetail);
-wrapper.append(message);
-//row.append(rigaBox);
+rigaBox.append(message);
+wrapper.append(rigaBox);
 
 
-//$(rigaBox).addClass("box-riga");
+$(rigaBox).addClass("box-riga");
 $(message).addClass("mex-received");
 $(messageContent).addClass("txt-mex");
 $(messageDetail).addClass("time-mex");
 
 }
 
-function testAdMessage2() {
+function testAddMessage2() {
 
 var wrapper = $(".wrapper");
-//var row = $(".box-riga");
 
-//var rigaBox = document.createElement("div");
+var rigaBox = document.createElement("div");
 var message = document.createElement("div");
 var messageContent = document.createElement("p");
 var messageDetail = document.createElement("span");
@@ -42,24 +40,24 @@ $(messageDetail).text("12:34");
 
 message.append(messageContent);
 message.append(messageDetail);
-wrapper.append(message);
-//row.append(rigaBox);
+rigaBox.append(message);
+wrapper.append(rigaBox);
 
 
-//$(rigaBox).addClass("box-riga");
+$(rigaBox).addClass("box-riga");
 $(message).addClass("mex-sent");
 $(messageContent).addClass("txt-mex");
 $(messageDetail).addClass("time-mex");
 
 }
 
-function txtEnterEvent(e) { // e sostanzialmente è la variabile che salva l'evento enter che accade a riga 43
+function txtEnterEvent(e) { // sostanzialmente è la variabile che salva l'evento enter
 
-  if (e.which == 13) { // se il bottone premuti è ENTER sulla tastiera (il numero 13 fa riferimento proprio ad ENTER)
+  if (e.which == 13) { // se il bottone premuto è ENTER (il numero 13 fa riferimento proprio ad ENTER)
 
     var inputVal = $(".input-txt");
-    testAdMessage();
-    setTimeout(testAdMessage2, 3000);
+    testAddMessage();
+    setTimeout(testAddMessage2, 1000);
     inputVal.val("");
 
   }
@@ -67,24 +65,47 @@ function txtEnterEvent(e) { // e sostanzialmente è la variabile che salva l'eve
 
 function switchClass() {
 
-  var mexActive = $(".container-mex > .box-mex.active");
-  var allMex = $(".container-mex > .box-mex");
+  var old = $(".container-mex > .box-mex.active")
+  old.removeClass("active");
   var me = $(this);
-  me.click(function() {
+  me.addClass("active");
+}
 
-    var allMex = $(".container-mex > .box-mex");
-    var me = $(this);
-    me.addClass("active");
-    mexActive.removeClass("active");
-  });
+function searchMessage() {
+
+  var me = $(this);
+  var content = me.val();
+  var listMex = $(".box_t-o > .titolo");
+
+  for (var i = 0; i < listMex.length; i++) {
+
+    var mex = listMex.eq(i);
+    var mexTxt = mex.text();
+    var boxes = $(".box-mex");// lista dei box che andranno nascosti se non corrispondono alla lettera inserita
+    var box = boxes.eq(i); // estrae iEsimo elemento box da nascondere
+
+    if (!mexTxt.includes(content)) {
+
+      box.addClass("hidden");
+    } else {
+
+      box.removeClass("hidden");
+    }
+
+  }
 }
 
 function init() {
 
-  switchClass();
 
   var txt = $(".input-txt");
   txt.keyup(txtEnterEvent);
+
+  var list = $(".container-mex > .box-mex");
+  list.click(switchClass);
+
+  var txtSearch = $("input.input");
+  txtSearch.keyup(searchMessage);
 }
 
 $(document).ready(init);
