@@ -1,71 +1,61 @@
-function testAddMessage() {
+function testAddMessage(sent, content) {
 
-var wrapper = $(".wrapper");
-
-var rigaBox = document.createElement("div");
-var message = document.createElement("div");
-var messageContent = document.createElement("p");
-var messageDetail = document.createElement("span");
-
-var inputVal = $(".input-txt");
-var usrVal = inputVal.val();
-$(messageContent).text(usrVal);
-$(messageDetail).text("12:31");
-
-message.append(messageContent);
-message.append(messageDetail);
-rigaBox.append(message);
-wrapper.append(rigaBox);
+  var wrapper = $(".wrapper");
 
 
-$(rigaBox).addClass("box-riga");
-$(message).addClass("mex-received");
-$(messageContent).addClass("txt-mex");
-$(messageDetail).addClass("time-mex");
+  var rigaBox = document.createElement("div");
+  var message = document.createElement("div");
+  var messageContent = document.createElement("p");
+  var messageDetail = document.createElement("span");
 
-}
+  if (sent) {
+    $(message).addClass("mex-sent");
+    $(messageContent).text(content);
+    $(messageDetail).text("12:34");
 
-function testAddMessage2() {
+    $(rigaBox).addClass("box-riga");
+    $(messageContent).addClass("txt-mex");
+    $(messageDetail).addClass("time-mex");
+  } else {
+    $(message).addClass("mex-received");
+    $(messageContent).text(content);
+    $(messageDetail).text("12:34");
 
-var wrapper = $(".wrapper");
+    $(rigaBox).addClass("box-riga");
+    $(messageContent).addClass("txt-mex");
+    $(messageDetail).addClass("time-mex");
+  }
 
-var rigaBox = document.createElement("div");
-var message = document.createElement("div");
-var messageContent = document.createElement("p");
-var messageDetail = document.createElement("span");
-
-
-$(messageContent).text("Chi sei??");
-$(messageDetail).text("12:34");
-
-message.append(messageContent);
-message.append(messageDetail);
-rigaBox.append(message);
-wrapper.append(rigaBox);
-
-
-$(rigaBox).addClass("box-riga");
-$(message).addClass("mex-sent");
-$(messageContent).addClass("txt-mex");
-$(messageDetail).addClass("time-mex");
+  message.append(messageContent);
+  message.append(messageDetail);
+  rigaBox.append(message);
+  wrapper.append(rigaBox);
 
 }
 
 function txtEnterEvent(e) { // sostanzialmente è la variabile che salva l'evento enter
 
+  var me = $(this);
+  var activeMsg = $(".wrapper");
+
   if (e.which == 13) { // se il bottone premuto è ENTER (il numero 13 fa riferimento proprio ad ENTER)
 
-    var inputVal = $(".input-txt");
-    testAddMessage();
-    setTimeout(testAddMessage2, 1000);
-    inputVal.val("");
+    var txt = me.val();
+    var msg = testAddMessage(false, txt);
+    activeMsg.append(msg);
+
+    setTimeout(function() {
+
+      msg = testAddMessage(true, "chi sei??");
+      activeMsg.append(msg);
+    }, 2000);
 
   }
 }
 
 function switchClass() {
 
-  var old = $(".container-mex > .box-mex.active")
+  var old = $(".container-contact > .box-mex.active")
   old.removeClass("active");
   var me = $(this);
   me.addClass("active");
@@ -74,13 +64,13 @@ function switchClass() {
 function searchMessage() {
 
   var me = $(this);
-  var content = me.val();
+  var content = me.val().toLowerCase();
   var listMex = $(".box_t-o > .titolo");
 
   for (var i = 0; i < listMex.length; i++) {
 
     var mex = listMex.eq(i);
-    var mexTxt = mex.text();
+    var mexTxt = mex.text().toLowerCase();
     var boxes = $(".box-mex");// lista dei box che andranno nascosti se non corrispondono alla lettera inserita
     var box = boxes.eq(i); // estrae iEsimo elemento box da nascondere
 
@@ -95,17 +85,31 @@ function searchMessage() {
   }
 }
 
+function clickContact() {
+
+  var me = $(this);
+  var indBox = me.index();
+
+  var boxes = $(".dinamic-tab");
+  boxes.removeClass("selected");
+  var boxSelected = boxes.eq(indBox);
+  boxSelected.addClass("selected");
+}
+
 function init() {
 
 
   var txt = $(".input-txt");
   txt.keyup(txtEnterEvent);
 
-  var list = $(".container-mex > .box-mex");
+  var list = $(".container-contact > .box-mex");
   list.click(switchClass);
 
   var txtSearch = $("input.input");
   txtSearch.keyup(searchMessage);
+
+  var boxes = $(".box-mex")
+  boxes.click(clickContact);
 }
 
 $(document).ready(init);
