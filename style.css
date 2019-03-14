@@ -230,6 +230,7 @@ input {
   border-radius: 5px;
   border: .5px solid lightgray;
   background-color: #fff;
+  overflow-wrap: break-word; 
 }
 
 .mex-received {
@@ -239,6 +240,7 @@ input {
   border-radius: 5px;
   border: .5px solid lightgray;
   background-color: #e0f8bd;
+  overflow-wrap: break-word; 
 }
 
 .txt-mex {
@@ -294,4 +296,11 @@ input {
 
 .hidden {
   display: none;
+}
+
+.box-r_clk {
+  width: 150px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
 }

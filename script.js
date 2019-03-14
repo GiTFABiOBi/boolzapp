@@ -1,7 +1,6 @@
 function testAddMessage(sent, content) {
 
-  var wrapper = $(".wrapper");
-
+  var wrapper = $(".dinamic-tab.selected .wrapper");
 
   var rigaBox = document.createElement("div");
   var message = document.createElement("div");
@@ -36,13 +35,15 @@ function testAddMessage(sent, content) {
 function txtEnterEvent(e) { // sostanzialmente è la variabile che salva l'evento enter
 
   var me = $(this);
-  var activeMsg = $(".wrapper");
 
   if (e.which == 13) { // se il bottone premuto è ENTER (il numero 13 fa riferimento proprio ad ENTER)
+
+    var activeMsg = $(".wrapper");
 
     var txt = me.val();
     var msg = testAddMessage(false, txt);
     activeMsg.append(msg);
+    me.val("");
 
     setTimeout(function() {
 
@@ -96,20 +97,50 @@ function clickContact() {
   boxSelected.addClass("selected");
 }
 
+function clickRight(e) {
+
+  if (e.which === 3) {
+
+
+    var box = document.createElement("div");
+    var mess = document.createElement("a");
+
+    $(box).addClass("box-r_clk");
+    $(mess).attr("href", "#");
+
+    var me = $(this);
+    var sent = $(".box-riga > .mex-sent");
+    var received = $(".box-riga > .mex-received");
+    if (me == sent) {
+
+      mess.append("test click destro mouse");
+      box.append(mess);
+      sent.append(box);
+    } else if (me == received){
+
+      mess.append("test click destro mouse");
+      box.append(mess);
+      received.append(box);
+    }
+  }
+}
+
 function init() {
-
-
+  // scatena evento enter da tastiera aggiungendo i messaggi
   var txt = $(".input-txt");
   txt.keyup(txtEnterEvent);
-
+  //cambia il colore di sfondo a scuro per il contatto selezionato
   var list = $(".container-contact > .box-mex");
   list.click(switchClass);
-
+  // campo di ricerca per i contatti: esclude i contatti che non contengono la/e lettere inserite nell'input
   var txtSearch = $("input.input");
   txtSearch.keyup(searchMessage);
-
+  //cliccando su un contatto si attiva la sua scheda con i propri messaggi
   var boxes = $(".box-mex")
   boxes.click(clickContact);
+  //
+  var msgS = $(".box-riga");
+  msgS.mousedown(clickRight);
 }
 
 $(document).ready(init);
