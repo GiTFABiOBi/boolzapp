@@ -4,51 +4,76 @@ function testAddMessage(sent, content) {
 
   var rigaBox = document.createElement("div");
   var message = document.createElement("div");
+  var boxMsg = document.createElement("div");
   var messageContent = document.createElement("p");
+  var check = document.createElement("i");
   var messageDetail = document.createElement("span");
+  var optionWin = document.createElement("div");
+  var divDelete = document.createElement("div");
+  var divInfo = document.createElement("div");
+  var txtDelete = document.createElement("span");
+  var txtInfo = document.createElement("span");
 
   if (sent) {
-    $(message).addClass("mex-sent");
-    $(messageContent).text(content);
-    $(messageDetail).text("12:34");
 
-    $(rigaBox).addClass("box-riga");
-    $(messageContent).addClass("txt-mex");
-    $(messageDetail).addClass("time-mex");
-  } else {
     $(message).addClass("mex-received");
-    $(messageContent).text(content);
-    $(messageDetail).text("12:34");
-
+    $(boxMsg).addClass("box-relative-opt");
+    $(check).addClass("fas fa-check");
     $(rigaBox).addClass("box-riga");
-    $(messageContent).addClass("txt-mex");
-    $(messageDetail).addClass("time-mex");
+    $(messageContent).addClass("txt-mex").text(content);
+    $(messageDetail).addClass("time-mex").text("12:34");
+    $(optionWin).addClass("box-option-msg");
+    $(divDelete).addClass("opt delete");
+    $(divInfo).addClass("opt info");
+    $(txtDelete).text("Delete Message");
+    $(txtInfo).text("Info Message");
+  } else {
+
+    $(message).addClass("mex-sent");
+    $(boxMsg).addClass("box-relative-opt");
+    $(check).addClass("fas fa-check");
+    $(rigaBox).addClass("box-riga");
+    $(messageContent).addClass("txt-mex").text(content);
+    $(messageDetail).addClass("time-mex").text("12:34");
+    $(optionWin).addClass("box-option-msg");
+    $(divDelete).addClass("opt delete");
+    $(divInfo).addClass("opt info");
+    $(txtDelete).text("Delete Message");
+    $(txtInfo).text("Info Message");
   }
 
-  message.append(messageContent);
-  message.append(messageDetail);
   rigaBox.append(message);
-  wrapper.append(rigaBox);
+  message.append(boxMsg);
+  boxMsg.append(messageContent);
+  boxMsg.append(check);
+  boxMsg.append(messageDetail);
+  boxMsg.append(optionWin);
+  optionWin.append(divDelete);
+  optionWin.append(divInfo);
+  divDelete.append(txtDelete);
+  divInfo.append(txtInfo);
 
+  return rigaBox;
 }
 
 function txtEnterEvent(e) { // sostanzialmente è la variabile che salva l'evento enter
 
   var me = $(this);
+  var wrapper = $(".dinamic-tab.selected .wrapper");
 
   if (e.which == 13) { // se il bottone premuto è ENTER (il numero 13 fa riferimento proprio ad ENTER)
 
-    var activeMsg = $(".wrapper");
-
     var txt = me.val();
-    var msg = testAddMessage(false, txt);
-    activeMsg.append(msg);
+
+    var mess = testAddMessage(true, txt);
+    wrapper.append(mess);
+
     me.val("");
 
     setTimeout(function() {
 
-      msg = testAddMessage(true, "chi sei??");
-      activeMsg.append(msg);
+      var msg = testAddMessage(false, "chi sei??");
+      wrapper.append(msg);
     }, 2000);
 
   }
@@ -97,32 +122,18 @@ function clickContact() {
   boxSelected.addClass("selected");
 }
 
-function clickRight(e) {
+function show() {
 
-  if (e.which === 3) {
+  var me = $(this);
+  var wind = me.find(".box-option-msg");
+  wind.toggleClass("show");
+}
 
+function deleteMsg() {
 
-    var box = document.createElement("div");
-    var mess = document.createElement("a");
-
-    $(box).addClass("box-r_clk");
-    $(mess).attr("href", "#");
-
-    var me = $(this);
-    var sent = $(".box-riga > .mex-sent");
-    var received = $(".box-riga > .mex-received");
-    if (me == sent) {
-
-      mess.append("test click destro mouse");
-      box.append(mess);
-      sent.append(box);
-    } else if (me == received){
-
-      mess.append("test click destro mouse");
-      box.append(mess);
-      received.append(box);
-    }
-  }
+  var me = $(this);
+  var msgToDel = me.closest(".box-riga");
+  msgToDel.remove();
 }
 
 function init() {
@@ -138,9 +149,13 @@ function init() {
   //cliccando su un contatto si attiva la sua scheda con i propri messaggi
   var boxes = $(".box-mex")
   boxes.click(clickContact);
-  //
-  var msgS = $(".box-riga");
-  msgS.mousedown(clickRight);
+  // attiva finestra opzioni per cancellare un messaggio
+  // var msgS = $(".box-riga");
+  // msgS.mousedown(clickRight);
+  var doc = $(document);
+
+  doc.on("click", ".box-relative-opt", show);
+  doc.on("click", ".opt.delete", deleteMsg);
 }
 
 $(document).ready(init);
