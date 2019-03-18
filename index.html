@@ -2,10 +2,37 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <!-- FONTAWESOME CSS SHEET -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- CSS SHEET -->
     <link rel="stylesheet" href="style.css">
     <title>pagina BoolsApp</title>
+    <!-- JQUERY SCRIPT -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- HANDLEBARS SCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js" charset="utf-8"></script>
+    <!-- MY TEMPLATE -->
+    <script id="box-template" type="text/x-handlebars-template">
+      <div class="box-riga">
+        <div class="{{ class }}">
+          <div class="box-relative-opt">
+            <p class="txt-mex">{{ testo }}</p>
+            <i class="fas fa-check"></i>
+            <span class="time-mex">{{ orario }}</span>
+            <!-- message option -->
+            <div class="box-option-msg">
+              <div class="opt delete">
+                <span>{{ delete }}</span>
+              </div>
+              <div class="opt info">
+                <span>{{ info }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <!-- MY JS SCRIPT -->
     <script src="script.js" charset="utf-8"></script>
   </head>
   <body>
@@ -230,117 +257,117 @@
           </div><!-- END .dinamic-tab -->
                       <!-- CONTATTO 3 -->
           <div class="dinamic-tab">
-          <!-- header dx 3-->
-          <header>
+            <!-- header dx 3-->
+            <header>
+              <div class="immg">
+                <img src="imgs/mark.jpg" alt="img del profilo">
+              </div>
+              <div class="box-icon">
+                <i class="far fa-user-circle fa-lg"></i>
+                <i class="fas fa-comment-alt fa-lg"></i>
+                <i class="fas fa-ellipsis-v fa-lg"></i>
+              </div>
+            </header>
+            <!-- __Chat 3__ -->
+            <div class="chat">
+              <div class="wrapper">
+                <!--- Mex in Entrata ---->
+                <div class="box-riga">
+                  <div class="mex-sent">
+                    <div class="box-relative-opt">
+                      <p class="txt-mex">Howdy Fabio...how are you?? It would be wounderful have you with us!!</p>
+                      <i class="fas fa-check"></i>
+                      <span class="time-mex">07:33</span>
+                      <!-- message option -->
+                      <div class="box-option-msg">
+                        <div class="opt delete">
+                          <span>Delete Message</span>
+                        </div>
+                        <div class="opt info">
+                          <span>Info Message</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--- Mex in Uscita ---->
+                <div class="box-riga">
+                  <div class="mex-received">
+                    <div class="box-relative-opt">
+                      <p class="txt-mex">Sorry Mark...TOO LATE!</p>
+                      <i class="fas fa-check"></i>
+                      <span class="time-mex">11:15</span>
+                      <!-- message option -->
+                      <div class="box-option-msg">
+                        <div class="opt delete">
+                          <span>Delete Message</span>
+                        </div>
+                        <div class="opt info">
+                          <span>Info Message</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- END .dinamic-tab -->
+                      <!-- CONTATTO 4 -->
+          <div class="dinamic-tab">
+            <!-- header dx 4-->
+            <header>
             <div class="immg">
-              <img src="imgs/mark.jpg" alt="img del profilo">
+              <img src="imgs/kim-kookheon.jpg" alt="img del profilo">
             </div>
             <div class="box-icon">
               <i class="far fa-user-circle fa-lg"></i>
               <i class="fas fa-comment-alt fa-lg"></i>
               <i class="fas fa-ellipsis-v fa-lg"></i>
             </div>
-          </header>
-          <!-- __Chat 3__ -->
-          <div class="chat">
-            <div class="wrapper">
-              <!--- Mex in Entrata ---->
-              <div class="box-riga">
-                <div class="mex-sent">
-                  <div class="box-relative-opt">
-                    <p class="txt-mex">Howdy Fabio...how are you?? It would be wounderful have you with us!!</p>
-                    <i class="fas fa-check"></i>
-                    <span class="time-mex">07:33</span>
-                    <!-- message option -->
-                    <div class="box-option-msg">
-                      <div class="opt delete">
-                        <span>Delete Message</span>
-                      </div>
-                      <div class="opt info">
-                        <span>Info Message</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--- Mex in Uscita ---->
-              <div class="box-riga">
-                <div class="mex-received">
-                  <div class="box-relative-opt">
-                    <p class="txt-mex">Sorry Mark...TOO LATE!</p>
-                    <i class="fas fa-check"></i>
-                    <span class="time-mex">11:15</span>
-                    <!-- message option -->
-                    <div class="box-option-msg">
-                      <div class="opt delete">
-                        <span>Delete Message</span>
-                      </div>
-                      <div class="opt info">
-                        <span>Info Message</span>
+            </header>
+            <!-- __Chat 4__ -->
+            <div class="chat">
+              <div class="wrapper">
+                <!--- Mex in Entrata ---->
+                <div class="box-riga">
+                  <div class="mex-sent">
+                    <div class="box-relative-opt">
+                      <p class="txt-mex">Arigato...</p>
+                      <i class="fas fa-check"></i>
+                      <span class="time-mex">07:33</span>
+                      <!-- message option -->
+                      <div class="box-option-msg">
+                        <div class="opt delete">
+                          <span>Delete Message</span>
+                        </div>
+                        <div class="opt info">
+                          <span>Info Message</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          </div><!-- END .dinamic-tab -->
-                      <!-- CONTATTO 4 -->
-          <div class="dinamic-tab">
-          <!-- header dx 4-->
-          <header>
-          <div class="immg">
-            <img src="imgs/kim-kookheon.jpg" alt="img del profilo">
-          </div>
-          <div class="box-icon">
-            <i class="far fa-user-circle fa-lg"></i>
-            <i class="fas fa-comment-alt fa-lg"></i>
-            <i class="fas fa-ellipsis-v fa-lg"></i>
-          </div>
-          </header>
-          <!-- __Chat 4__ -->
-          <div class="chat">
-          <div class="wrapper">
-            <!--- Mex in Entrata ---->
-            <div class="box-riga">
-              <div class="mex-sent">
-                <div class="box-relative-opt">
-                  <p class="txt-mex">Arigato...</p>
-                  <i class="fas fa-check"></i>
-                  <span class="time-mex">07:33</span>
-                  <!-- message option -->
-                  <div class="box-option-msg">
-                    <div class="opt delete">
-                      <span>Delete Message</span>
-                    </div>
-                    <div class="opt info">
-                      <span>Info Message</span>
+                <!--- Mex in Uscita ---->
+                <div class="box-riga">
+                  <div class="mex-received">
+                    <div class="box-relative-opt">
+                      <p class="txt-mex">...Aspaghettì!!</p>
+                      <i class="fas fa-check"></i>
+                      <span class="time-mex">11:15</span>
+                      <!-- message option -->
+                      <div class="box-option-msg">
+                        <div class="opt delete">
+                          <span>Delete Message</span>
+                        </div>
+                        <div class="opt info">
+                          <span>Info Message</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!--- Mex in Uscita ---->
-            <div class="box-riga">
-              <div class="mex-received">
-                <div class="box-relative-opt">
-                  <p class="txt-mex">...Aspaghettì!!</p>
-                  <i class="fas fa-check"></i>
-                  <span class="time-mex">11:15</span>
-                  <!-- message option -->
-                  <div class="box-option-msg">
-                    <div class="opt delete">
-                      <span>Delete Message</span>
-                    </div>
-                    <div class="opt info">
-                      <span>Info Message</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
           </div><!-- END .dinamic-tab -->
           <!-- footer -->
           <footer>

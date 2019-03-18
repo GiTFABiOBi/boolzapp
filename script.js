@@ -1,59 +1,84 @@
+// function testAddMessage(sent, content) {
+//
+//   var wrapper = $(".dinamic-tab.selected .wrapper");
+//
+//   var rigaBox = document.createElement("div");
+//   var message = document.createElement("div");
+//   var boxMsg = document.createElement("div");
+//   var messageContent = document.createElement("p");
+//   var check = document.createElement("i");
+//   var messageDetail = document.createElement("span");
+//   var optionWin = document.createElement("div");
+//   var divDelete = document.createElement("div");
+//   var divInfo = document.createElement("div");
+//   var txtDelete = document.createElement("span");
+//   var txtInfo = document.createElement("span");
+//
+//   if (sent) {
+//
+//     $(message).addClass("mex-received");
+//     $(boxMsg).addClass("box-relative-opt");
+//     $(check).addClass("fas fa-check");
+//     $(rigaBox).addClass("box-riga");
+//     $(messageContent).addClass("txt-mex").text(content);
+//     $(messageDetail).addClass("time-mex").text("12:34");
+//     $(optionWin).addClass("box-option-msg");
+//     $(divDelete).addClass("opt delete");
+//     $(divInfo).addClass("opt info");
+//     $(txtDelete).text("Delete Message");
+//     $(txtInfo).text("Info Message");
+//   } else {
+//
+//     $(message).addClass("mex-sent");
+//     $(boxMsg).addClass("box-relative-opt");
+//     $(check).addClass("fas fa-check");
+//     $(rigaBox).addClass("box-riga");
+//     $(messageContent).addClass("txt-mex").text(content);
+//     $(messageDetail).addClass("time-mex").text("12:34");
+//     $(optionWin).addClass("box-option-msg");
+//     $(divDelete).addClass("opt delete");
+//     $(divInfo).addClass("opt info");
+//     $(txtDelete).text("Delete Message");
+//     $(txtInfo).text("Info Message");
+//   }
+//
+//   rigaBox.append(message);
+//   message.append(boxMsg);
+//   boxMsg.append(messageContent);
+//   boxMsg.append(check);
+//   boxMsg.append(messageDetail);
+//   boxMsg.append(optionWin);
+//   optionWin.append(divDelete);
+//   optionWin.append(divInfo);
+//   divDelete.append(txtDelete);
+//   divInfo.append(txtInfo);
+//
+//   return rigaBox;
+// }
+
 function testAddMessage(sent, content) {
 
   var wrapper = $(".dinamic-tab.selected .wrapper");
 
-  var rigaBox = document.createElement("div");
-  var message = document.createElement("div");
-  var boxMsg = document.createElement("div");
-  var messageContent = document.createElement("p");
-  var check = document.createElement("i");
-  var messageDetail = document.createElement("span");
-  var optionWin = document.createElement("div");
-  var divDelete = document.createElement("div");
-  var divInfo = document.createElement("div");
-  var txtDelete = document.createElement("span");
-  var txtInfo = document.createElement("span");
+  var data = {
+    testo : content,
+    orario : "17:13",
+    delete : "Delete Message",
+    info : "Info Message",
+  };
 
   if (sent) {
-
-    $(message).addClass("mex-received");
-    $(boxMsg).addClass("box-relative-opt");
-    $(check).addClass("fas fa-check");
-    $(rigaBox).addClass("box-riga");
-    $(messageContent).addClass("txt-mex").text(content);
-    $(messageDetail).addClass("time-mex").text("12:34");
-    $(optionWin).addClass("box-option-msg");
-    $(divDelete).addClass("opt delete");
-    $(divInfo).addClass("opt info");
-    $(txtDelete).text("Delete Message");
-    $(txtInfo).text("Info Message");
+    data.class = "mex-received";
   } else {
-
-    $(message).addClass("mex-sent");
-    $(boxMsg).addClass("box-relative-opt");
-    $(check).addClass("fas fa-check");
-    $(rigaBox).addClass("box-riga");
-    $(messageContent).addClass("txt-mex").text(content);
-    $(messageDetail).addClass("time-mex").text("12:34");
-    $(optionWin).addClass("box-option-msg");
-    $(divDelete).addClass("opt delete");
-    $(divInfo).addClass("opt info");
-    $(txtDelete).text("Delete Message");
-    $(txtInfo).text("Info Message");
+    data.class = "mex-sent";
   }
 
-  rigaBox.append(message);
-  message.append(boxMsg);
-  boxMsg.append(messageContent);
-  boxMsg.append(check);
-  boxMsg.append(messageDetail);
-  boxMsg.append(optionWin);
-  optionWin.append(divDelete);
-  optionWin.append(divInfo);
-  divDelete.append(txtDelete);
-  divInfo.append(txtInfo);
+  var template = $("#box-template").html();
+  var compiled = Handlebars.compile(template);
+  var msgHTML = compiled(data);
 
-  return rigaBox;
+  wrapper.append(msgHTML);
+
 }
 
 function txtEnterEvent(e) { // sostanzialmente è la variabile che salva l'evento enter
@@ -70,10 +95,14 @@ function txtEnterEvent(e) { // sostanzialmente è la variabile che salva l'event
 
     me.val("");
 
+    var scrollSelector = $(".box.dx .wrapper");
+    scrollSelector.animate({scrollTop: scrollSelector.prop("scrollHeight")});// scroll automatico all'aggiunta di messaggi che raggiungon il fondo della pagina
+
     setTimeout(function() {
 
       var msg = testAddMessage(false, "chi sei??");
       wrapper.append(msg);
+      scrollSelector.animate({scrollTop: scrollSelector.prop("scrollHeight")});
     }, 2000);
 
   }
@@ -137,6 +166,8 @@ function deleteMsg() {
 }
 
 function init() {
+  var doc = $(document);
+
   // scatena evento enter da tastiera aggiungendo i messaggi
   var txt = $(".input-txt");
   txt.keyup(txtEnterEvent);
@@ -152,10 +183,19 @@ function init() {
   // attiva finestra opzioni per cancellare un messaggio
   // var msgS = $(".box-riga");
   // msgS.mousedown(clickRight);
-  var doc = $(document);
 
   doc.on("click", ".box-relative-opt", show);
   doc.on("click", ".opt.delete", deleteMsg);
 }
 
 $(document).ready(init);
+
+//function
+
+
+var btn = $("#btn");
+btn.click(function() {
+
+  var res = funzione();
+
+})
