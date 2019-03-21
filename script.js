@@ -59,9 +59,11 @@
 function testAddMessage(sent, content) {
 
   var wrapper = $(".dinamic-tab.selected .wrapper");
+  var input = $(".input-txt");
+  var txt = input.val();
+  input.val("");
 
   var data = {
-    testo : content,
     orario : "17:13",
     delete : "Delete Message",
     info : "Info Message",
@@ -69,8 +71,10 @@ function testAddMessage(sent, content) {
 
   if (sent) {
     data.class = "mex-received";
+    data.testo = txt
   } else {
     data.class = "mex-sent";
+    data.testo = "chi sei?"
   }
 
   var template = $("#box-template").html();
@@ -81,30 +85,22 @@ function testAddMessage(sent, content) {
 
 }
 
-function txtEnterEvent(e) { // sostanzialmente è la variabile che salva l'evento enter
-
-  var me = $(this);
-  var wrapper = $(".dinamic-tab.selected .wrapper");
+function txtEnterEvent(e) { // il parametro 'e' è la variabile che salva l'evento enter
 
   if (e.which == 13) { // se il bottone premuto è ENTER (il numero 13 fa riferimento proprio ad ENTER)
 
-    var txt = me.val();
-
-    var mess = testAddMessage(true, txt);
-    wrapper.append(mess);
-
-    me.val("");
+    testAddMessage(true);
 
     var scrollSelector = $(".box.dx .wrapper");
     scrollSelector.animate({scrollTop: scrollSelector.prop("scrollHeight")});// scroll automatico all'aggiunta di messaggi che raggiungon il fondo della pagina
 
     setTimeout(function() {
 
-      var msg = testAddMessage(false, "chi sei??");
+      var wrapper = $(".dinamic-tab.selected .wrapper");
+      var msg = testAddMessage(false);
       wrapper.append(msg);
       scrollSelector.animate({scrollTop: scrollSelector.prop("scrollHeight")});
-    }, 2000);
-
+    }, 500);
   }
 }
 
@@ -124,8 +120,8 @@ function searchMessage() {
 
   for (var i = 0; i < listMex.length; i++) {
 
-    var mex = listMex.eq(i);
-    var mexTxt = mex.text().toLowerCase();
+    var mex = listMex.eq(i);// eatrae il singolo nome dell'elenco utenti sulla sx
+    var mexTxt = mex.text().toLowerCase();// rende tutti i caratteri minuscoli
     var boxes = $(".box-mex");// lista dei box che andranno nascosti se non corrispondono alla lettera inserita
     var box = boxes.eq(i); // estrae iEsimo elemento box da nascondere
 
@@ -136,7 +132,6 @@ function searchMessage() {
 
       box.removeClass("hidden");
     }
-
   }
 }
 
