@@ -56,6 +56,51 @@
 //   return rigaBox;
 // }
 
+function getRndAnswerAPI() {
+
+  $.ajax({
+
+    url : "https://flynn.boolean.careers/exercises/api/random/sentence",
+    method : "GET",
+    success : function(data, state) {
+
+      // codice con logica corretta (ed uso sapiente delle funzioni)
+      if (data.success) {
+
+        var txt = data.response;
+        testAddMessage(false, txt);
+        var scrollSelector = $(".box.dx .wrapper");
+        scrollSelector.animate({scrollTop: scrollSelector.prop("scrollHeight")});// scroll automatico all'aggiunta di messaggi che raggiungon il fondo della pagina
+      }
+
+      // codice con mia logica
+      // var inData = {
+      //   class : "mex-sent",
+      //   testo : data.response,
+      //   orario : "17:13",
+      //   delete : "Delete Message",
+      //   info : "Info Message",
+      // };
+      //
+      // if (data.success) {
+      //
+      //   var wrapper = $(".dinamic-tab.selected .wrapper");
+      //   var template = $("#box-template").html();
+      //   var compiled = Handlebars.compile(template);
+      //   var msgHTML = compiled(inData);
+      //
+      //   wrapper.append(msgHTML);
+      // }
+    },
+    error : function(request, state, error) {
+
+      console.log("request", request);
+      console.log("state", state);
+      console.log("error", error);
+    },
+  });
+}
+
 function testAddMessage(sent, content) {
 
   var wrapper = $(".dinamic-tab.selected .wrapper");
@@ -71,10 +116,10 @@ function testAddMessage(sent, content) {
 
   if (sent) {
     data.class = "mex-received";
-    data.testo = txt
+    data.testo = txt;
   } else {
     data.class = "mex-sent";
-    data.testo = "chi sei?"
+    data.testo = content
   }
 
   var template = $("#box-template").html();
@@ -82,7 +127,6 @@ function testAddMessage(sent, content) {
   var msgHTML = compiled(data);
 
   wrapper.append(msgHTML);
-
 }
 
 function txtEnterEvent(e) { // il parametro 'e' è la variabile che salva l'evento enter
@@ -94,13 +138,7 @@ function txtEnterEvent(e) { // il parametro 'e' è la variabile che salva l'even
     var scrollSelector = $(".box.dx .wrapper");
     scrollSelector.animate({scrollTop: scrollSelector.prop("scrollHeight")});// scroll automatico all'aggiunta di messaggi che raggiungon il fondo della pagina
 
-    setTimeout(function() {
-
-      var wrapper = $(".dinamic-tab.selected .wrapper");
-      var msg = testAddMessage(false);
-      wrapper.append(msg);
-      scrollSelector.animate({scrollTop: scrollSelector.prop("scrollHeight")});
-    }, 500);
+    setTimeout(getRndAnswerAPI, 1000);
   }
 }
 
@@ -120,7 +158,7 @@ function searchMessage() {
 
   for (var i = 0; i < listMex.length; i++) {
 
-    var mex = listMex.eq(i);// eatrae il singolo nome dell'elenco utenti sulla sx
+    var mex = listMex.eq(i);// estrae il singolo nome dell'elenco utenti sulla sx
     var mexTxt = mex.text().toLowerCase();// rende tutti i caratteri minuscoli
     var boxes = $(".box-mex");// lista dei box che andranno nascosti se non corrispondono alla lettera inserita
     var box = boxes.eq(i); // estrae iEsimo elemento box da nascondere
@@ -184,13 +222,3 @@ function init() {
 }
 
 $(document).ready(init);
-
-//function
-
-
-var btn = $("#btn");
-btn.click(function() {
-
-  var res = funzione();
-
-})
